@@ -2,6 +2,7 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
+const { HttpError, tryCatchWrapper } = require("../../helpers/index.js");
 
 const routerContacts = express.Router();
 
@@ -18,18 +19,22 @@ const {
   updateContactController,
 } = require("../../controllers/contacts.controller");
 
-routerContacts.get("/", getContactsController);
+routerContacts.get("/", tryCatchWrapper(getContactsController));
 
-routerContacts.get("/:contactId", getContactController);
+routerContacts.get("/:contactId", tryCatchWrapper(getContactController));
 
-routerContacts.post("/", validationCreateContact, createContactController);
+routerContacts.post(
+  "/",
+  validationCreateContact,
+  tryCatchWrapper(createContactController)
+);
 
-routerContacts.delete("/:contactId", deleteContactController);
+routerContacts.delete("/:contactId", tryCatchWrapper(deleteContactController));
 
 routerContacts.put(
   "/:contactId",
   validationUpdateContact,
-  updateContactController
+  tryCatchWrapper(updateContactController)
 );
 
 module.exports = routerContacts;
