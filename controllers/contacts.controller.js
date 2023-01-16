@@ -6,7 +6,7 @@
 //   updateContact,
 // } = require("../models/contacts");
 const { HttpError } = require("../helpers/index.js");
-const { Contact } = require("../schemas/contacts");
+const { Contact } = require("../models/contacts_schema");
 
 const getContactsController = async (req, res, next) => {
   const contacts = await Contact.find({});
@@ -17,7 +17,7 @@ const getContactController = async (req, res, next) => {
   const id = req.params.contactId;
 
   const contact = await Contact.findById(id);
-
+  console.log("contactById", contact);
   if (!contact) {
     return next(HttpError(404, `Not found contact with id- ${id}`));
   }
@@ -29,8 +29,15 @@ const createContactController = async (req, res, next) => {
   console.log("favorite create", req.body.favorite);
   // const contact = await addContact({ name, email, phone });
   const newContact = await Contact.create({ name, email, phone });
-  s;
-  res.status(201).json(newContact);
+  console.log("newContact", newContact);
+
+  return res.status(201).json({
+    status: "success",
+    code: 201,
+    data: {
+      newContact,
+    },
+  });
 };
 
 const deleteContactController = async (req, res, next) => {

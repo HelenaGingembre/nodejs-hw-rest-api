@@ -26,7 +26,7 @@ routerContacts.get("/:contactId", tryCatchWrapper(getContactController));
 
 routerContacts.post(
   "/",
-  validationCreateContact,
+  // validationCreateContact,
   tryCatchWrapper(createContactController)
 );
 
