@@ -8,11 +8,9 @@ const contactSchema = mongoose.Schema(
     },
     email: {
       type: String,
-      //   required: true,
     },
     phone: {
       type: String,
-      //   required: true,
     },
     favorite: {
       type: Boolean,
@@ -25,7 +23,7 @@ const contactSchema = mongoose.Schema(
   }
 );
 
-const Contact = mongoose.model("contacts", contactSchema);
+const Contact = mongoose.model("contact", contactSchema);
 
 module.exports = {
   Contact,

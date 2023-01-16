@@ -25,10 +25,10 @@ const getContactController = async (req, res, next) => {
 };
 
 const createContactController = async (req, res, next) => {
-  const { name, email, phone } = req.body;
-  console.log("favorite create", req.body.favorite);
+  // const { name, email, phone } = req.body;
+  // console.log("favorite create", req.body.favorite);
   // const contact = await addContact({ name, email, phone });
-  const newContact = await Contact.create({ name, email, phone });
+  const newContact = await Contact.create(req.body);
   console.log("newContact", newContact);
 
   return res.status(201).json({
@@ -49,7 +49,9 @@ const deleteContactController = async (req, res, next) => {
     return next(HttpError(404, "Contact Not found"));
   }
   await Contact.findByIdAndRemove(id);
-  return res.status(200).json(contact, {
+
+  console.log("delete contact by ID ", contact);
+  return res.status(200).json({
     status: "success",
     code: 200,
     message: `Contact deleted with id ${id}`,
@@ -58,16 +60,19 @@ const deleteContactController = async (req, res, next) => {
 
 const updateContactController = async (req, res, next) => {
   const id = req.params.contactId;
-  const updateContact = await Contact.findByIdAndUpdate(id, req.body);
+  const updateContact = await Contact.findByIdAndUpdate(id, req.body, {
+    new: true,
+  });
 
   if (!updateContact) {
     return next(HttpError(404, `Contact with id ${id} Not found`));
   }
 
-  return res.status(200).json(updateContact, {
+  return res.status(200).json({
     status: "success",
     code: 200,
     message: `Contact with id ${id} updated`,
+    data: { updateContact },
   });
 };
 
@@ -79,18 +84,19 @@ const updateStatusContactController = async (req, res, next) => {
   }
   const favorite = req.body.favorite;
 
-  const updateFavoriteContact = await Contact.findByIdAndUpdate(id, {
-    favorite,
+  const updateFavoriteContact = await Contact.findByIdAndUpdate(id, favorite, {
+    new: true,
   });
   console.log("contactUpdateFavorite", updateFavoriteContact);
   if (!updateFavoriteContact) {
     return next(HttpError(404, `Contact with id ${id} Not found`));
   }
 
-  return res.status(200).json(updateFavoriteContact, {
+  return res.status(200).json({
     status: "success",
     code: 200,
     message: `Contact with id ${id} updated`,
+    data: { updateFavoriteContact },
   });
 };
 module.exports = {

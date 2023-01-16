@@ -38,9 +38,9 @@ routerContacts.put(
   tryCatchWrapper(updateContactController)
 );
 
-routerContacts.put(
+routerContacts.patch(
   "/:contactId/favorite",
-  // validationUpdateContact,
+  validationUpdateContact,
   tryCatchWrapper(updateStatusContactController)
 );
 module.exports = routerContacts;
