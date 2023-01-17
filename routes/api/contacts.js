@@ -1,6 +1,5 @@
 const express = require("express");
-// const logger = require("morgan");
-// const cors = require("cors");
+
 require("dotenv").config();
 const { HttpError, tryCatchWrapper } = require("../../helpers/index.js");
 
@@ -11,36 +10,32 @@ const {
   validationUpdateContact,
 } = require("./validation");
 
-const {
-  getContactsController,
-  getContactController,
-  deleteContactController,
-  createContactController,
-  updateContactController,
-  updateStatusContactController,
-} = require("../../controllers/contacts.controller");
+const { contactsCtrl } = require("../../controllers");
 
-routerContacts.get("/", tryCatchWrapper(getContactsController));
+routerContacts.get("/", tryCatchWrapper(contactsCtrl.getAllContacts));
 
-routerContacts.get("/:contactId", tryCatchWrapper(getContactController));
+routerContacts.get("/:contactId", tryCatchWrapper(contactsCtrl.getContactById));
 
 routerContacts.post(
   "/",
-  // validationCreateContact,
-  tryCatchWrapper(createContactController)
+  validationCreateContact,
+  tryCatchWrapper(contactsCtrl.addContact)
 );
 
-routerContacts.delete("/:contactId", tryCatchWrapper(deleteContactController));
+routerContacts.delete(
+  "/:contactId",
+  tryCatchWrapper(contactsCtrl.removeContact)
+);
 
 routerContacts.put(
   "/:contactId",
   validationUpdateContact,
-  tryCatchWrapper(updateContactController)
+  tryCatchWrapper(contactsCtrl.updateContact)
 );
 
 routerContacts.patch(
   "/:contactId/favorite",
   validationUpdateContact,
-  tryCatchWrapper(updateStatusContactController)
+  tryCatchWrapper(contactsCtrl.statusContact)
 );
 module.exports = routerContacts;

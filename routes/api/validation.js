@@ -11,7 +11,7 @@ const schemaUpdateContact = Joi.object({
   name: Joi.string().optional(),
   email: Joi.string().optional(),
   phone: Joi.string().optional(),
-  favorite: Joi.bool(),
+  favorite: Joi.bool().valid(true, false),
 }).or("name", "email", "phone", "favorite");
 
 const validate = async (schema, obj, next, message) => {
