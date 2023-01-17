@@ -26,7 +26,7 @@ const getContactById = async (contactId) => {
   try {
     const data = await readDb();
 
-    return data.find((item) => Number(item.id) == Number(contactId));
+    return data.find((item) => item.id == contactId);
   } catch (error) {
     console.error(error);
   }
@@ -36,9 +36,7 @@ const removeContact = async (contactId) => {
   try {
     const data = await readDb();
 
-    const index = data.findIndex(
-      (item) => Number(item.id) === Number(contactId)
-    );
+    const index = data.findIndex((item) => item.id == contactId);
     if (index !== -1) {
       const removed = data.splice(index, 1);
       await writeDB(data);

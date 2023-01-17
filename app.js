@@ -20,8 +20,18 @@ app.use((req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  const status = err.status || 500;
-  res.status(status).json({ status: "fail", code: 500, message: err.message });
+  if (error.status) {
+    return res.status(error.status).json({
+      message: error.message,
+    });
+  }
+
+  console.error("API error :", error.message, error.type);
+  // const status = err.status || 500;
+
+  res
+    .status(500)
+    .json({ status: "Interval server error", code: 500, message: err.message });
 });
 
 module.exports = app;
