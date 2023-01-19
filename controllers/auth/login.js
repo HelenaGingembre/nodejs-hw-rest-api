@@ -2,6 +2,7 @@ const { User } = require("../../models/user");
 const { HttpError } = require("../../helpers");
 const bcrypt = require("bcrypt");
 
+const { SECRET_KEY } = process.env;
 /**
  * 1. Find user by email
  * 2. If user not exists => throw an error 401
@@ -10,7 +11,7 @@ const bcrypt = require("bcrypt");
  */
 
 const login = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password, subscription } = req.body;
 
   const storedUser = await User.findOne({
     email,
@@ -25,10 +26,25 @@ const login = async (req, res, next) => {
   if (!isPasswordValid) {
     throw new HttpError(401, "password is not valid");
   }
+  const payload = {
+    id: User._id,
+  };
+  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "24h" });
+  ///  TODO !!!!! token!!!!!
+  await User.findByIdAndUpdate(User._id, { token });
 
   return res.json({
-    data: {
-      token: "<TOKEN>",
+    // data: {
+    //   token: "<TOKEN>",
+    // },
+    status: "success",
+    code: 200,
+    responseBody: {
+      token,
+      user: {
+        email,
+        subscription,
+      },
     },
   });
 };
