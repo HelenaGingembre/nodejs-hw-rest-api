@@ -38,4 +38,5 @@ routerContacts.patch(
   validationUpdateContact,
   tryCatchWrapper(contactsCtrl.statusContact)
 );
+
 module.exports = routerContacts;
