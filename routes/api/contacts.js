@@ -1,9 +1,9 @@
 const express = require("express");
 
 require("dotenv").config();
-const { HttpError, tryCatchWrapper } = require("../../helpers/index.js");
+const { tryCatchWrapper } = require("../../helpers/index.js");
 
-const routerContacts = express.Router();
+const contactsRouter = express.Router();
 
 const {
   validationCreateContact,
@@ -12,31 +12,31 @@ const {
 
 const { contactsCtrl } = require("../../controllers");
 
-routerContacts.get("/", tryCatchWrapper(contactsCtrl.getAllContacts));
+contactsRouter.get("/", tryCatchWrapper(contactsCtrl.getAllContacts));
 
-routerContacts.get("/:contactId", tryCatchWrapper(contactsCtrl.getContactById));
+contactsRouter.get("/:contactId", tryCatchWrapper(contactsCtrl.getContactById));
 
-routerContacts.post(
+contactsRouter.post(
   "/",
   validationCreateContact,
   tryCatchWrapper(contactsCtrl.addContact)
 );
 
-routerContacts.delete(
+contactsRouter.delete(
   "/:contactId",
   tryCatchWrapper(contactsCtrl.removeContact)
 );
 
-routerContacts.put(
+contactsRouter.put(
   "/:contactId",
   validationUpdateContact,
   tryCatchWrapper(contactsCtrl.updateContact)
 );
 
-routerContacts.patch(
+contactsRouter.patch(
   "/:contactId/favorite",
   validationUpdateContact,
   tryCatchWrapper(contactsCtrl.statusContact)
 );
 
-module.exports = { routerContacts };
+module.exports = { contactsRouter };

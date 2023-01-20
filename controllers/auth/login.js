@@ -1,5 +1,6 @@
 const { User } = require("../../models/user");
 const { HttpError } = require("../../helpers");
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 const { SECRET_KEY } = process.env;
@@ -16,7 +17,7 @@ const login = async (req, res, next) => {
   const storedUser = await User.findOne({
     email,
   });
-
+  console.log("storedUser", storedUser);
   if (!storedUser) {
     throw new HttpError(401, "email is not valid");
   }
@@ -29,9 +30,11 @@ const login = async (req, res, next) => {
   const payload = {
     id: storedUser._id,
   };
-  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "1d" });
+  console.log("SECRET_KEY", SECRET_KEY);
+  const token = jwt.sign(payload, process.env.SECRET_KEY);
   ///  TODO !!!!! token!!!!!
-  await User.findByIdAndUpdate(User._id, { token });
+  console.log("token", token);
+  // await User.findByIdAndUpdate(User._id, { token });
 
   return res.json({
     // data: {

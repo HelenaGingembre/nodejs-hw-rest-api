@@ -2,7 +2,7 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 
-const { routerContacts } = require("./routes/api/contacts");
+const { contactsRouter } = require("./routes/api/contacts");
 const { authRouter } = require("./routes/api/auth");
 const { userRouter } = require("./routes/api/user");
 // const { tryCatchWrapper } = require("./helpers/index");
@@ -17,7 +17,7 @@ app.use(express.json()); // tell express to work with JSON in body
 
 // routes
 app.use("/api/auth", authRouter);
-app.use("/api/contacts", routerContacts);
+app.use("/api/contacts", contactsRouter);
 app.use("/api/user", userRouter);
 
 // 404
@@ -51,13 +51,11 @@ app.use((error, req, res, next) => {
 
   console.error("API error :", error.message, error.type);
 
-  return res
-    .status(500)
-    .json({
-      status: "Interval server error",
-      code: 500,
-      message: error.message,
-    });
+  return res.status(500).json({
+    status: "Interval server error",
+    code: 500,
+    message: error.message,
+  });
 });
 
 module.exports = { app };
