@@ -1,4 +1,4 @@
-const signup = require("./register");
+const signup = require("./signup");
 const login = require("./login");
 const getCurrentUser = require("./getCurrent");
 const logout = require("./logout");

@@ -23,7 +23,7 @@ const schemaCreateUser = Joi.object({
 const schemaLoginUser = Joi.object({
   email: Joi.string().pattern(emailPattern).required(),
   password: Joi.string().min(6).required(),
-  subscription: Joi.string().required(),
+  subscription: Joi.string().optional(),
 });
 
 const validate = async (schema, obj, next, message) => {
@@ -55,7 +55,7 @@ module.exports = {
       schemaCreateUser,
       req.body,
       next,
-      "missing required argument UserSignup"
+      "validate. missing required argument UserSignup"
     );
   },
   validationLoginUser: (req, res, next) => {
@@ -63,7 +63,7 @@ module.exports = {
       schemaLoginUser,
       req.body,
       next,
-      "missing required argument UserLogin"
+      "validate. missing required argument UserLogin"
     );
   },
 };

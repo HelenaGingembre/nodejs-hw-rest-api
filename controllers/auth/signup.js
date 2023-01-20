@@ -2,9 +2,9 @@ const { User } = require("../../models/user");
 const { HttpError } = require("../../helpers");
 const bcrypt = require("bcrypt");
 
-const register = async (req, res, next) => {
+const signup = async (req, res, next) => {
   const { email, password } = req.body;
-
+  console.log("user register", req.body);
   const salt = await bcrypt.genSalt();
   const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -17,7 +17,7 @@ const register = async (req, res, next) => {
     res.status(201).json({
       data: {
         user: {
-          email,
+          email: savedUser.email,
           id: savedUser._id,
         },
       },
@@ -31,4 +31,4 @@ const register = async (req, res, next) => {
   }
 };
 
-module.exports = register;
+module.exports = signup;

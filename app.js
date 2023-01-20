@@ -3,7 +3,8 @@ const logger = require("morgan");
 const cors = require("cors");
 
 const { routerContacts } = require("./routes/api/contacts");
-const { authRouter } = require("./routes/api/users");
+const { authRouter } = require("./routes/api/auth");
+const { userRouter } = require("./routes/api/user");
 // const { tryCatchWrapper } = require("./helpers/index");
 
 const app = express();
@@ -15,8 +16,9 @@ app.use(cors());
 app.use(express.json()); // tell express to work with JSON in body
 
 // routes
-app.use("/api/users", authRouter);
+app.use("/api/auth", authRouter);
 app.use("/api/contacts", routerContacts);
+app.use("/api/user", userRouter);
 
 // 404
 app.use((req, res) => {
@@ -24,7 +26,7 @@ app.use((req, res) => {
   res.status(404).json({ status: "error", code: 404, message: "Not found" });
 });
 // error handling
-app.use((err, req, res, next) => {
+app.use((error, req, res, next) => {
   console.error("Handling errors: ", error.message, error.name);
 
   // handle mongoose validation error
@@ -51,7 +53,11 @@ app.use((err, req, res, next) => {
 
   return res
     .status(500)
-    .json({ status: "Interval server error", code: 500, message: err.message });
+    .json({
+      status: "Interval server error",
+      code: 500,
+      message: error.message,
+    });
 });
 
 module.exports = { app };

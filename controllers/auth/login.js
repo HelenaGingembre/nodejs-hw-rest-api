@@ -27,11 +27,11 @@ const login = async (req, res, next) => {
     throw new HttpError(401, "password is not valid");
   }
   const payload = {
-    id: User._id,
+    id: storedUser._id,
   };
-  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "24h" });
+  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "1d" });
   ///  TODO !!!!! token!!!!!
-  await User.findByIdAndUpdate(User._id, { token });
+  // await User.findByIdAndUpdate(User._id, { token });
 
   return res.json({
     // data: {

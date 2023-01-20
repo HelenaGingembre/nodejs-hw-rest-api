@@ -6,7 +6,6 @@ const { /*HttpError,*/ tryCatchWrapper } = require("../../helpers/index.js");
 const authRouter = express.Router();
 const { authCtrl } = require("../../controllers");
 const { validationCreateUser, validationLoginUser } = require("./validation");
-const { authenticate } = require("../../helpers/authenticate");
 
 //users/signup
 authRouter.post(
@@ -17,15 +16,5 @@ authRouter.post(
 
 //login
 authRouter.post("/login", validationLoginUser, tryCatchWrapper(authCtrl.login));
-
-//current
-authRouter.get(
-  "/current",
-  authenticate,
-  tryCatchWrapper(authCtrl.getCurrentUser)
-);
-
-//logout
-authRouter.get("/logout", authenticate, tryCatchWrapper(authCtrl.logout));
 
 module.exports = { authRouter };
