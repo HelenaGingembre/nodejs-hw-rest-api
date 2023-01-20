@@ -14,9 +14,8 @@ const schemaUpdateContact = Joi.object({
   favorite: Joi.bool().valid(true, false),
 }).or("name", "email", "phone", "favorite");
 
-const emailPattern = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
+const emailPattern = /[a-z0-9]+@[a-z0-9]+/;
 const schemaCreateUser = Joi.object({
-  // name: Joi.string().required(),
   email: Joi.string().pattern(emailPattern).required(),
   password: Joi.string().min(6).required(),
 });

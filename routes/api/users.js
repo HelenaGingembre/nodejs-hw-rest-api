@@ -1,34 +1,31 @@
 const express = require("express");
 
 require("dotenv").config();
-const { HttpError, tryCatchWrapper } = require("../../helpers/index.js");
-const { User } = require("../../models/users");
-const routerUsers = express.Router();
+const { /*HttpError,*/ tryCatchWrapper } = require("../../helpers/index.js");
+// const { User } = require("../../models/user");
+const authRouter = express.Router();
 const { authCtrl } = require("../../controllers");
 const { validationCreateUser, validationLoginUser } = require("./validation");
+const { authenticate } = require("../../helpers/authenticate");
 
 //users/signup
-routerUsers.post(
+authRouter.post(
   "/signup",
   validationCreateUser,
   tryCatchWrapper(authCtrl.signup)
 );
 
 //login
-routerUsers.post(
-  "/login",
-  validationLoginUser,
-  tryCatchWrapper(authCtrl.login)
-);
+authRouter.post("/login", validationLoginUser, tryCatchWrapper(authCtrl.login));
 
 //current
-routerUsers.get(
+authRouter.get(
   "/current",
   authenticate,
   tryCatchWrapper(authCtrl.getCurrentUser)
 );
 
 //logout
-routerUsers.get("/logout", authenticate, tryCatchWrapper(authCtrl.logout));
+authRouter.get("/logout", authenticate, tryCatchWrapper(authCtrl.logout));
 
-module.exports = routerUsers;
+module.exports = { authRouter };

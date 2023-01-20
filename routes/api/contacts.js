@@ -39,4 +39,4 @@ routerContacts.patch(
   tryCatchWrapper(contactsCtrl.statusContact)
 );
 
-module.exports = routerContacts;
+module.exports = { routerContacts };
