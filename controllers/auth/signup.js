@@ -19,6 +19,7 @@ const signup = async (req, res, next) => {
         user: {
           email: savedUser.email,
           id: savedUser._id,
+          subscription: savedUser.subscription,
         },
       },
     });

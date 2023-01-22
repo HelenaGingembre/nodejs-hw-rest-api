@@ -7,14 +7,14 @@ const authRouter = express.Router();
 const { authCtrl } = require("../../controllers");
 const { validationCreateUser, validationLoginUser } = require("./validation");
 
-//users/signup
+//auth/signup
 authRouter.post(
   "/signup",
   validationCreateUser,
   tryCatchWrapper(authCtrl.signup)
 );
 
-//login
+//auth/login
 authRouter.post("/login", validationLoginUser, tryCatchWrapper(authCtrl.login));
 
 module.exports = { authRouter };

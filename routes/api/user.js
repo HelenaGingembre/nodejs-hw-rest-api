@@ -16,11 +16,6 @@ userRouter.get(
   tryCatchWrapper(authenticate),
   tryCatchWrapper(contactsCtrl.getAllContacts)
 );
-userRouter.get(
-  "/current",
-  tryCatchWrapper(authenticate),
-  tryCatchWrapper(authCtrl.getCurrentUser)
-);
 
 //current
 userRouter.get(

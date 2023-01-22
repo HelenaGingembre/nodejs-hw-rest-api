@@ -34,7 +34,7 @@ const login = async (req, res, next) => {
   const token = jwt.sign(payload, process.env.SECRET_KEY);
   ///  TODO !!!!! token!!!!!
   console.log("token", token);
-  // await User.findByIdAndUpdate(User._id, { token });
+  await User.findByIdAndUpdate(User._id, { token });
 
   return res.json({
     // data: {
@@ -46,7 +46,7 @@ const login = async (req, res, next) => {
       token,
       user: {
         email,
-        subscription,
+        subscription: storedUser.subscription,
       },
     },
   });

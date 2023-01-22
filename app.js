@@ -18,7 +18,7 @@ app.use(express.json()); // tell express to work with JSON in body
 // routes
 app.use("/api/auth", authRouter);
 app.use("/api/contacts", contactsRouter);
-app.use("/api/user", userRouter);
+app.use("/api/users", userRouter);
 
 // 404
 app.use((req, res) => {
