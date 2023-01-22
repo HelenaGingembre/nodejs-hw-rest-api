@@ -1,7 +1,7 @@
 const express = require("express");
 const { tryCatchWrapper } = require("../../helpers/index");
 const { authCtrl } = require("../../controllers");
-const { contactsCtrl } = require("../../controllers");
+const { userCtrl } = require("../../controllers");
 
 const userRouter = express.Router();
 const { authenticate } = require("../../helpers/authenticate");
@@ -9,19 +9,19 @@ const { authenticate } = require("../../helpers/authenticate");
 userRouter.post(
   "/contacts",
   tryCatchWrapper(authenticate),
-  tryCatchWrapper(contactsCtrl.addContact)
+  tryCatchWrapper(userCtrl.addContactUser)
 );
 userRouter.get(
   "/contacts",
   tryCatchWrapper(authenticate),
-  tryCatchWrapper(contactsCtrl.getAllContacts)
+  tryCatchWrapper(userCtrl.getContactsUser)
 );
 
 //current
 userRouter.get(
   "/current",
   tryCatchWrapper(authenticate),
-  tryCatchWrapper(authCtrl.getCurrentUser)
+  tryCatchWrapper(userCtrl.getCurrentUser)
 );
 
 //logout

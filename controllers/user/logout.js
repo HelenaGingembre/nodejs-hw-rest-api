@@ -4,9 +4,9 @@ const { HttpError } = require("../../helpers/index");
 const logout = async (req, res, next) => {
   const { id } = req.user;
   console.log("token avant logout", req.user.token);
-  const user = await User.findByIdAndUpdate(id, { token: "" });
+  const user = await User.findByIdAndUpdate({ _id: id }, { token: "" });
   console.log("user logout", user);
-  // const user = await User.updateToken(id, null);
+
   if (!user) {
     throw new HttpError(401, "Not authorized");
   }
