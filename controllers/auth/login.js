@@ -12,7 +12,7 @@ const { SECRET_KEY } = process.env;
  */
 
 const login = async (req, res, next) => {
-  const { email, password, subscription } = req.body;
+  const { email, password } = req.body;
 
   const storedUser = await User.findOne({
     email,
@@ -30,11 +30,16 @@ const login = async (req, res, next) => {
   const payload = {
     id: storedUser._id,
   };
-  console.log("SECRET_KEY", SECRET_KEY);
-  const token = jwt.sign(payload, process.env.SECRET_KEY);
-  ///  TODO !!!!! token!!!!!
+  // console.log("SECRET_KEY", SECRET_KEY);
+  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "1d" });
+
   console.log("token", token);
-  await User.findByIdAndUpdate(User._id, { token });
+
+  // storedUser = await User.findByIdAndUpdate(
+  //   storedUser._id,
+  //   { token },
+  //   { new: true }
+  // );
 
   return res.json({
     // data: {

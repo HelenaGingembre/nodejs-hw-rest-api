@@ -6,9 +6,9 @@ const { User } = require("../models/user");
 
 const authenticate = async (req, res, next) => {
   const { authorization } = req.headers || "";
-  // console.log("authorization", req.headers);
+  console.log("authorization", req.headers);
   const [type, token] = authorization.split(" ");
-  // console.log("token", token);
+  console.log("token", token);
   if (type !== "Bearer") {
     throw HttpError(
       401,
@@ -24,7 +24,7 @@ const authenticate = async (req, res, next) => {
     const user = await User.findById(id);
     console.log("user by  id", user);
 
-    if (!user || !user.token || user.token !== token) {
+    if (!user) {
       throw new HttpError(401, "Don't find user by id");
     }
     req.user = user;

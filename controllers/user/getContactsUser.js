@@ -12,7 +12,7 @@ const getContactsUser = async (req, res, next) => {
 
   return res.status(200).json({
     data: {
-      owner: userWithContacts.owner,
+      contacts: userWithContacts.contacts,
     },
   });
 };

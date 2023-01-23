@@ -4,7 +4,11 @@ const { HttpError } = require("../../helpers/index");
 const logout = async (req, res, next) => {
   const { id } = req.user;
   console.log("token avant logout", req.user.token);
-  const user = await User.findByIdAndUpdate({ _id: id }, { token: "" });
+  const user = await User.findByIdAndUpdate(
+    { _id: id },
+    { token: "" },
+    { new: true }
+  );
   console.log("user logout", user);
 
   if (!user) {
@@ -14,6 +18,9 @@ const logout = async (req, res, next) => {
     state: "success",
     code: 204,
     message: "No Content",
+    data: {
+      user,
+    },
   });
 };
 

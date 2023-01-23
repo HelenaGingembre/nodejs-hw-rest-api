@@ -10,7 +10,7 @@ const addContactUser = async (req, res, next) => {
 
   return res.status(201).json({
     data: {
-      owner: user.owner,
+      contacts: user.contacts,
     },
   });
 };
