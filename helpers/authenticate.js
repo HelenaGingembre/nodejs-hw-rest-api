@@ -6,9 +6,9 @@ const { User } = require("../models/user");
 
 const authenticate = async (req, res, next) => {
   const { authorization } = req.headers || "";
-  console.log("authorization", req.headers);
+  // console.log("authorization", req.headers);
   const [type, token] = authorization.split(" ");
-  console.log("token", token);
+  // console.log("token", token);
   if (type !== "Bearer") {
     throw HttpError(
       401,

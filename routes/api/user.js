@@ -28,7 +28,7 @@ userRouter.get(
 userRouter.get(
   "/logout",
   tryCatchWrapper(authenticate),
-  tryCatchWrapper(authCtrl.logout)
+  tryCatchWrapper(userCtrl.logout)
 );
 
 module.exports = {

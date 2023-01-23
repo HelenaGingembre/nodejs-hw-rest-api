@@ -14,6 +14,7 @@ const logout = async (req, res, next) => {
   if (!user) {
     throw new HttpError(401, "Not authorized");
   }
+
   return res.status(204).json({
     state: "success",
     code: 204,
