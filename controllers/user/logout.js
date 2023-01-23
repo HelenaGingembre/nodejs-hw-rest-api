@@ -6,7 +6,7 @@ const logout = async (req, res, next) => {
   console.log("token avant logout", req.user.token);
   const user = await User.findByIdAndUpdate(
     { _id: id },
-    { token: "" },
+    { token: null },
     { new: true }
   );
   console.log("user logout", user);
