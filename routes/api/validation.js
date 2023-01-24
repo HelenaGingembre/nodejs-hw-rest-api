@@ -14,6 +14,18 @@ const schemaUpdateContact = Joi.object({
   favorite: Joi.bool().valid(true, false),
 }).or("name", "email", "phone", "favorite");
 
+const emailPattern = /[a-z0-9]+@[a-z0-9]+/;
+const schemaCreateUser = Joi.object({
+  email: Joi.string().pattern(emailPattern).required(),
+  password: Joi.string().min(6).required(),
+});
+
+const schemaLoginUser = Joi.object({
+  email: Joi.string().pattern(emailPattern).required(),
+  password: Joi.string().min(6).required(),
+  subscription: Joi.string().optional(),
+});
+
 const validate = async (schema, obj, next, message) => {
   try {
     await schema.validateAsync(obj);
@@ -37,5 +49,21 @@ module.exports = {
   },
   validationUpdateContact: (req, res, next) => {
     return validate(schemaUpdateContact, req.body, next, "missing field");
+  },
+  validationCreateUser: (req, res, next) => {
+    return validate(
+      schemaCreateUser,
+      req.body,
+      next,
+      "validate. missing required argument UserSignup"
+    );
+  },
+  validationLoginUser: (req, res, next) => {
+    return validate(
+      schemaLoginUser,
+      req.body,
+      next,
+      "validate. missing required argument UserLogin"
+    );
   },
 };

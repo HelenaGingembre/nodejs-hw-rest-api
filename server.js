@@ -3,7 +3,7 @@
 
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const app = require("./app");
+const { app } = require("./app");
 
 dotenv.config(); // should be called before you use env variables
 mongoose.set("strictQuery", false);
