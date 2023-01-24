@@ -14,6 +14,7 @@ const getContactsUser = async (req, res, next) => {
     data: {
       contacts: userWithContacts.contacts,
     },
+    quantity: contacts.length,
   });
 };
 
