@@ -5,15 +5,16 @@ const { makeUploadAvatars, makeAvatarUrl } = require("../../helpers/paths");
 const { User } = require("../../models/user");
 // const { HttpError } = require("../../helpers/index");
 
-const direFile = path.join(__dirname, "../../", "avatars");
-console.log(direFile);
+// const direFile = path.join(__dirname, "../../", "avatars");
+// console.log(direFile);
 
 const uploadAvatar = async (req, res, next) => {
   console.log("avatar req.file", req.file);
 
   const { _id } = req.user;
   const { path: tmpPathUpload, originalname } = req.file;
-  const fileNameAvatar = `${_id}_${originalname}`;
+  const extention = originalname.split(".").pop();
+  const fileNameAvatar = `${_id}.${extention}`;
 
   console.log("fileNameAvatar", fileNameAvatar);
 
@@ -39,6 +40,7 @@ const uploadAvatar = async (req, res, next) => {
     });
   } catch (error) {
     await fs.unlink(tmpPathUpload);
+    console.log("error: ", error.message);
     throw error;
   }
 };

@@ -27,18 +27,11 @@ userRouter.get(
 //avatar
 userRouter.patch(
   "/avatars",
+  tryCatchWrapper(authenticate),
   upload.single("avatar"),
-  formatImg,
+  tryCatchWrapper(formatImg),
   tryCatchWrapper(userCtrl.uploadAvatar)
 );
-
-// .patch(
-//     '/avatars',
-//     auth,
-//      uploadAvatar.single('avatarsURL'),
-//     formatImage,
-//     tryCatchWrapper(userCtrl.uploadAvatar)
-//   )
 
 //logout
 userRouter.get(

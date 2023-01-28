@@ -24,8 +24,9 @@ const storage = multer.diskStorage({
     cb(null, tmpDir);
   },
   filename: function (req, file, cb) {
+    const { _id } = req.user;
     // cb(null, Math.random() + file.originalname);
-    cb(null, Math.random() + file.originalname);
+    cb(null, _id + file.originalname);
   },
   // limits: {
   //   fileSize: 1048576,
