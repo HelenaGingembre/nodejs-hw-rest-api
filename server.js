@@ -29,5 +29,3 @@ async function connectMongo() {
 }
 
 connectMongo();
-
-// const Cat = mongoose.model("Cat", { name: String });

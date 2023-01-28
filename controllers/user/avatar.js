@@ -1,4 +1,5 @@
 const path = require("path");
+const fs = require("fs/promises");
 
 const { User } = require("../../models/user");
 // const { HttpError } = require("../../helpers/index");
@@ -6,8 +7,12 @@ const { User } = require("../../models/user");
 const direFile = path.join(__dirname, "../../", "public", "avatars");
 console.log(direFile);
 
-const newAvatar = async (req, res) => {
-  console.log("avatar", direFile);
+const uploadAvatar = async (req, res, next) => {
+  console.log("avatar req.file", res.file);
+
+  return res.json({
+    ok: true,
+  });
 };
 
-module.exports = newAvatar;
+module.exports = uploadAvatar;
