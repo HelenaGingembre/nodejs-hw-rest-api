@@ -1,10 +1,11 @@
 const express = require("express");
-const { tryCatchWrapper, uploadAvatar } = require("../../helpers/index");
+const { tryCatchWrapper, upload } = require("../../helpers/index");
 
 const { userCtrl } = require("../../controllers");
 
 const userRouter = express.Router();
 const { authenticate } = require("../../helpers/authenticate");
+const { formatImg } = require("../../helpers/formatImg");
 
 userRouter.post(
   "/contacts",
@@ -26,7 +27,8 @@ userRouter.get(
 //avatar
 userRouter.patch(
   "/avatars",
-  uploadAvatar.single("avatarsURL"),
+  upload.single("avatar"),
+  formatImg,
   tryCatchWrapper(userCtrl.uploadAvatar)
 );
 

@@ -2,7 +2,7 @@ const getCurrentUser = require("./getCurrentUser");
 const logout = require("./logout");
 const getContactsUser = require("./getContactsUser");
 const addContactUser = require("./addContactUser");
-const uploadAvatar = require("./avatar");
+const uploadAvatar = require("./newAvatar");
 
 module.exports = {
   getCurrentUser,

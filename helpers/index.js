@@ -1,12 +1,6 @@
 const multer = require("multer");
-const path = require("path");
-const {
-  tmpDir,
-  publicDir,
-  avatarsDir,
-  makeUploadAvatars,
-  makeAvatarUrl,
-} = require("./path");
+// const path = require("path");
+const { tmpDir } = require("./paths");
 
 function tryCatchWrapper(enpointFn) {
   return async (req, res, next) => {
@@ -38,12 +32,12 @@ const storage = multer.diskStorage({
   // },
 });
 
-const uploadAvatar = multer({
+const upload = multer({
   storage,
 });
 
 module.exports = {
   tryCatchWrapper,
   HttpError,
-  uploadAvatar,
+  upload,
 };
