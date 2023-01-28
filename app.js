@@ -14,7 +14,9 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json()); // tell express to work with JSON in body
-app.use("/public", express.static("public"));
+
+//http://localhost:3000/avatars/avatar.png
+app.use(express.static("public"));
 
 // routes
 app.use("/api/v1/auth", authRouter);
