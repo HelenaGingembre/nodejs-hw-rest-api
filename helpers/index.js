@@ -18,7 +18,7 @@ function HttpError(status, message) {
   return err;
 }
 
-const storage = multer.diskStorage({
+const multerConfig = multer.diskStorage({
   destination: function (req, file, cb) {
     // cb(null, path.resolve(__dirname, "../tmp"));
     cb(null, tmpDir);
@@ -33,12 +33,12 @@ const storage = multer.diskStorage({
   // },
 });
 
-const upload = multer({
-  storage,
+const download = multer({
+  storage: multerConfig,
 });
 
 module.exports = {
   tryCatchWrapper,
   HttpError,
-  upload,
+  download,
 };

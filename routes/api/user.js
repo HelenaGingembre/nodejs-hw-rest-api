@@ -1,5 +1,5 @@
 const express = require("express");
-const { tryCatchWrapper, upload } = require("../../helpers/index");
+const { tryCatchWrapper, download } = require("../../helpers/index");
 
 const { userCtrl } = require("../../controllers");
 
@@ -28,7 +28,7 @@ userRouter.get(
 userRouter.patch(
   "/avatars",
   tryCatchWrapper(authenticate),
-  upload.single("avatar"),
+  download.single("avatar"),
   tryCatchWrapper(formatImg),
   tryCatchWrapper(userCtrl.uploadAvatar)
 );
