@@ -20,17 +20,15 @@ function HttpError(status, message) {
 
 const multerConfig = multer.diskStorage({
   destination: function (req, file, cb) {
-    // cb(null, path.resolve(__dirname, "../tmp"));
     cb(null, tmpDir);
   },
   filename: function (req, file, cb) {
     const { _id } = req.user;
-    // cb(null, Math.random() + file.originalname);
     cb(null, _id + file.originalname);
   },
-  // limits: {
-  //   fileSize: 1048576,
-  // },
+  limits: {
+    fileSize: 1048576,
+  },
 });
 
 const download = multer({

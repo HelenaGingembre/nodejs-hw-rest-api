@@ -13,8 +13,8 @@ const uploadAvatar = async (req, res, next) => {
 
   const { _id } = req.user;
   const { path: tmpPathUpload, originalname } = req.file;
-  const extention = originalname.split(".").pop();
-  const fileNameAvatar = `${_id}.${extention}`;
+  // const extention = originalname.split(".").pop();
+  const fileNameAvatar = `${_id}_${originalname}`;
 
   console.log("fileNameAvatar", fileNameAvatar);
 
@@ -29,13 +29,12 @@ const uploadAvatar = async (req, res, next) => {
       { new: true }
     );
 
+    console.log("____________:   rrrrrrr");
+
     return res.status(200).json({
+      status: 200,
       data: {
-        user: {
-          _id,
-          email,
-          avatarURL: updated.avatarURL,
-        },
+        avatarURL,
       },
     });
   } catch (error) {
