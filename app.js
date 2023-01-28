@@ -14,11 +14,12 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json()); // tell express to work with JSON in body
+app.use("/public", express.static("public"));
 
 // routes
-app.use("/api/auth", authRouter);
-app.use("/api/contacts", contactsRouter);
-app.use("/api/users", userRouter);
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/contacts", contactsRouter);
+app.use("/api/v1/users", userRouter);
 
 // 404
 app.use((req, res) => {

@@ -23,7 +23,12 @@ userRouter.get(
   tryCatchWrapper(authenticate),
   tryCatchWrapper(userCtrl.getCurrentUser)
 );
-
+//avatar
+userRouter.patch(
+  "/current/image"
+  // upload.single("image"),
+  // tryCatchWrapper(uploadImage)
+);
 //logout
 userRouter.get(
   "/logout",
