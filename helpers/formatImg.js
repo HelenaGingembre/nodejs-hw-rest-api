@@ -4,17 +4,12 @@ const path = require("path");
 const SIZE = 250;
 
 const formatImg = async (req, res, next) => {
-  console.log("req.file in format", req.file);
-  const { path: tempUpload } = req.file;
+  // console.log("req.file in format", req.file);
+  const { path: tmpUpload } = req.file;
 
-  try {
-    const img = await jimp.read(tempUpload);
+  const img = await jimp.read(tmpUpload);
 
-    await img.resize(SIZE, SIZE).writeAsync(tempUpload); // save - writeAsync()
-  } catch (error) {
-    console.error(error.message);
-    next(error);
-  }
+  return await img.resize(SIZE, SIZE).quality(60).writeAsync(tmpUpload); // save - writeAsync()
 };
 
 module.exports = { formatImg };
