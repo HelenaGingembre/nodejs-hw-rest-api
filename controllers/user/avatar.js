@@ -15,4 +15,4 @@ const uploadAvatar = async (req, res, next) => {
   });
 };
 
-module.exports = uploadAvatar;
+module.exports = { uploadAvatar };

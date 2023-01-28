@@ -1,5 +1,12 @@
 const multer = require("multer");
 const path = require("path");
+const {
+  tmpDir,
+  publicDir,
+  avatarsDir,
+  makeUploadAvatars,
+  makeAvatarUrl,
+} = require("./path");
 
 function tryCatchWrapper(enpointFn) {
   return async (req, res, next) => {
@@ -19,16 +26,20 @@ function HttpError(status, message) {
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.resolve(__dirname, "../tmp"));
+    // cb(null, path.resolve(__dirname, "../tmp"));
+    cb(null, tmpDir);
   },
   filename: function (req, file, cb) {
+    // cb(null, Math.random() + file.originalname);
     cb(null, Math.random() + file.originalname);
   },
+  // limits: {
+  //   fileSize: 1048576,
+  // },
 });
 
 const uploadAvatar = multer({
   storage,
-  // limits: {},
 });
 
 module.exports = {

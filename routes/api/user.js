@@ -29,6 +29,15 @@ userRouter.patch(
   uploadAvatar.single("avatarsURL"),
   tryCatchWrapper(userCtrl.uploadAvatar)
 );
+
+// .patch(
+//     '/avatars',
+//     auth,
+//      uploadAvatar.single('avatarsURL'),
+//     formatImage,
+//     tryCatchWrapper(userCtrl.uploadAvatar)
+//   )
+
 //logout
 userRouter.get(
   "/logout",
