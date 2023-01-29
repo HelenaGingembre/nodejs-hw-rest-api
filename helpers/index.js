@@ -1,3 +1,7 @@
+const multer = require("multer");
+// const path = require("path");
+const { tmpDir } = require("./paths");
+
 function tryCatchWrapper(enpointFn) {
   return async (req, res, next) => {
     try {
@@ -14,7 +18,25 @@ function HttpError(status, message) {
   return err;
 }
 
+const multerConfig = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, tmpDir);
+  },
+  filename: function (req, file, cb) {
+    const { _id } = req.user;
+    cb(null, _id + file.originalname);
+  },
+  limits: {
+    fileSize: 1048576,
+  },
+});
+
+const download = multer({
+  storage: multerConfig,
+});
+
 module.exports = {
   tryCatchWrapper,
   HttpError,
+  download,
 };

@@ -1,10 +1,11 @@
 const express = require("express");
-const { tryCatchWrapper } = require("../../helpers/index");
-const { authCtrl } = require("../../controllers");
+const { tryCatchWrapper, download } = require("../../helpers/index");
+
 const { userCtrl } = require("../../controllers");
 
 const userRouter = express.Router();
 const { authenticate } = require("../../helpers/authenticate");
+const { formatImg } = require("../../helpers/formatImg");
 
 userRouter.post(
   "/contacts",
@@ -22,6 +23,14 @@ userRouter.get(
   "/current",
   tryCatchWrapper(authenticate),
   tryCatchWrapper(userCtrl.getCurrentUser)
+);
+//avatar
+userRouter.patch(
+  "/avatars",
+  tryCatchWrapper(authenticate),
+  download.single("avatar"),
+  tryCatchWrapper(formatImg),
+  tryCatchWrapper(userCtrl.uploadAvatar)
 );
 
 //logout

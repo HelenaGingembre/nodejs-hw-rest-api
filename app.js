@@ -5,6 +5,7 @@ const cors = require("cors");
 const { contactsRouter } = require("./routes/api/contacts");
 const { authRouter } = require("./routes/api/auth");
 const { userRouter } = require("./routes/api/user");
+const { publicDir } = require("./helpers/paths");
 // const { tryCatchWrapper } = require("./helpers/index");
 
 const app = express();
@@ -15,10 +16,14 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json()); // tell express to work with JSON in body
 
+//http://localhost:3000/avatars/avatar.png
+// app.use(express.static("public"));
+app.use(express.static(publicDir));
+
 // routes
-app.use("/api/auth", authRouter);
-app.use("/api/contacts", contactsRouter);
-app.use("/api/users", userRouter);
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/contacts", contactsRouter);
+app.use("/api/v1/users", userRouter);
 
 // 404
 app.use((req, res) => {

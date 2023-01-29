@@ -2,10 +2,11 @@
 // const cors = require("cors");
 
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
+// const dotenv = require("dotenv");
+require("dotenv").config(); // should be called before you use env variables
+
 const { app } = require("./app");
 
-dotenv.config(); // should be called before you use env variables
 mongoose.set("strictQuery", false);
 
 const { HOST_URI } = process.env;
@@ -28,5 +29,3 @@ async function connectMongo() {
 }
 
 connectMongo();
-
-// const Cat = mongoose.model("Cat", { name: String });
