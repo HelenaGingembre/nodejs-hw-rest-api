@@ -3,6 +3,7 @@ const logout = require("./logout");
 const getContactsUser = require("./getContactsUser");
 const addContactUser = require("./addContactUser");
 const uploadAvatar = require("./newAvatar");
+const resendVerifyEmail = require("./resendVerifyEmail");
 
 module.exports = {
   getCurrentUser,
@@ -10,4 +11,5 @@ module.exports = {
   getContactsUser,
   addContactUser,
   uploadAvatar,
+  resendVerifyEmail,
 };

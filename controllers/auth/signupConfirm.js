@@ -11,10 +11,7 @@ const signupConfirmation = async (req, res, next) => {
   try {
     const userVerify = await User.findOne({ verificationToken, verify: false });
     if (!userVerify) {
-      throw new HttpError(
-        404,
-        `Invalid or expired confirmation code. Not Found`
-      );
+      throw new HttpError(404, `Invalid verificationToken. Not Found`);
     }
 
     const userId = userVerify._id;
@@ -23,9 +20,7 @@ const signupConfirmation = async (req, res, next) => {
     const savedUserVerify = await User.findByIdAndUpdate(
       userId,
       { verificationToken: null, verify: true },
-      {
-        new: true,
-      }
+      { new: true }
     );
     if (!savedUserVerify) {
       throw new HttpError(
