@@ -6,11 +6,12 @@ const gravatar = require("gravatar");
 const signup = async (req, res, next) => {
   const { email, password } = req.body;
   console.log("user register", req.body);
+
   const salt = await bcrypt.genSalt();
   const hashedPassword = await bcrypt.hash(password, salt);
 
   const avatarURL = gravatar.url(email);
-  console.log("avatarURL", avatarURL);
+  // console.log("avatarURL", avatarURL);
 
   try {
     const savedUser = await User.create({
