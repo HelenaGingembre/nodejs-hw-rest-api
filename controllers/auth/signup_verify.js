@@ -6,7 +6,9 @@ const { nanoid } = require("nanoid");
 
 const sgMail = require("@sendgrid/mail");
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const { SENDGRID_API_KEY } = process.env;
+sgMail.setApiKey(SENDGRID_API_KEY);
+// console.log("SENDGRID_API_KEY:", SENDGRID_API_KEY);
 
 const signupVerify = async (req, res, next) => {
   const { email, password } = req.body;
@@ -16,13 +18,13 @@ const signupVerify = async (req, res, next) => {
     if (user) {
       throw new HttpError(409, `User with this ${email} already exists`);
     }
-
+    console.log("user register", req.body);
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
     const avatarURL = gravatar.url(email);
-    // console.log("avatarURL", avatarURL);
+    console.log("avatarURL", avatarURL);
 
-    const verificationToken = nanoid(email + process.env.SECRET_KEY);
+    const verificationToken = nanoid();
     console.log("verificationToken", verificationToken);
 
     const savedUser = await User.create({
@@ -42,9 +44,11 @@ const signupVerify = async (req, res, next) => {
     };
     await sgMail.send(msg);
 
-    console.log("Email 'verify your Email' sent");
+    // console.log("Verification email sent");
 
-    res.status(201).json({
+    res.status(200).json({
+      status: 200,
+      message: "Verification email sent",
       data: {
         user: {
           email: savedUser.email,

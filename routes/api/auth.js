@@ -16,11 +16,10 @@ authRouter.post(
 );
 //GET /auth/verify/:verificationToken
 
-// TODO!!!!!!!! GET & POST
-router.post(
+authRouter.get(
   "/verify/:verificationToken",
   validationCreateUser,
-  asyncWrapper(authCtrl.signupConfirmation)
+  tryCatchWrapper(authCtrl.signupConfirmation)
 );
 
 //auth/login

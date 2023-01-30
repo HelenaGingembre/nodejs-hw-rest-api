@@ -20,9 +20,9 @@ const signupConfirmation = async (req, res, next) => {
     }
 
     const userId = userVerify._id;
-
+    console.log("userId: ", userId);
     const savedUserVerify = await User.findByIdAndUpdate({
-      userId,
+      _id: userId,
       verificationToken: null,
       verify: true,
     });
@@ -45,6 +45,8 @@ const signupConfirmation = async (req, res, next) => {
     console.log("Email sent ");
 
     res.status(201).json({
+      status: 200,
+      message: "Verification successful",
       data: {
         user: {
           email: savedUserVerify.email,

@@ -39,6 +39,9 @@ userRouter.get(
   tryCatchWrapper(authenticate),
   tryCatchWrapper(userCtrl.logout)
 );
+// POST /users/verify
+// TODO!!!!!!!!!! userCtrl.
+userRouter.post("/verify", tryCatchWrapper());
 
 module.exports = {
   userRouter,
