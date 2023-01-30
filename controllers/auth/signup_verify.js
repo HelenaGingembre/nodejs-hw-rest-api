@@ -6,7 +6,8 @@ const { nanoid } = require("nanoid");
 
 const sgMail = require("@sendgrid/mail");
 
-const { SENDGRID_API_KEY } = process.env;
+const { SENDGRID_API_KEY, BASE_URL, PORT } = process.env;
+
 sgMail.setApiKey(SENDGRID_API_KEY);
 // console.log("SENDGRID_API_KEY:", SENDGRID_API_KEY);
 
@@ -39,8 +40,8 @@ const signupVerify = async (req, res, next) => {
       to: email,
       from: "e.izotovagingembre@outlook.com",
       subject: "Please confirm your email  address!",
-      text: `Please, confirm your email address POST http://localhost:3000/api/auth/verify/${verificationToken}`,
-      html: `Please, confirm your email address <a href="POST http://localhost:3000/api/auth/verify/${verificationToken}">confirm email</a>`,
+      text: `Please, confirm your email address POST ${BASE_URL}${PORT}/api/auth/verify/${verificationToken}`,
+      html: `Please, confirm your email address <a target="_blank" href="${BASE_URL}${PORT}/api/auth/verify/${verificationToken}">confirm email</a>`,
     };
     await sgMail.send(msg);
 

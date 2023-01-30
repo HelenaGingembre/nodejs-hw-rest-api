@@ -1,7 +1,5 @@
 const { User } = require("../../models/user");
 const { HttpError } = require("../../helpers");
-const bcrypt = require("bcrypt");
-const gravatar = require("gravatar");
 const { nanoid } = require("nanoid");
 
 const sgMail = require("@sendgrid/mail");
@@ -20,12 +18,15 @@ const signupConfirmation = async (req, res, next) => {
     }
 
     const userId = userVerify._id;
+
     console.log("userId: ", userId);
-    const savedUserVerify = await User.findByIdAndUpdate({
-      _id: userId,
-      verificationToken: null,
-      verify: true,
-    });
+    const savedUserVerify = await User.findByIdAndUpdate(
+      userId,
+      { verificationToken: null, verify: true },
+      {
+        new: true,
+      }
+    );
     if (!savedUserVerify) {
       throw new HttpError(
         404,
@@ -48,14 +49,7 @@ const signupConfirmation = async (req, res, next) => {
       status: 200,
       message: "Verification successful",
       data: {
-        user: {
-          email: savedUserVerify.email,
-          id: savedUserVerify._id,
-          subscription: savedUserVerify.subscription,
-          avatarURL: savedUserVerify.avatarURL,
-          verificationToken: null,
-          verify: true,
-        },
+        user: savedUserVerify,
       },
     });
   } catch (error) {

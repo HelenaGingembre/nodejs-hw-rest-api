@@ -16,6 +16,7 @@ const login = async (req, res, next) => {
 
   const storedUser = await User.findOne({
     email,
+    verify: true,
   });
   console.log("storedUser", storedUser);
   if (!storedUser) {
