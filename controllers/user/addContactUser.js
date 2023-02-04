@@ -1,5 +1,4 @@
 const { User } = require("../../models/user");
-// const { HttpError } = require("../../helpers/index");
 
 const addContactUser = async (req, res, next) => {
   const { user } = req;

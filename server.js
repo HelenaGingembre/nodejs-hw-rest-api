@@ -1,9 +1,8 @@
 // const express = require("express");
 // const cors = require("cors");
-
+require("dotenv").config(); // should be called before you use env variables
 const mongoose = require("mongoose");
 // const dotenv = require("dotenv");
-require("dotenv").config(); // should be called before you use env variables
 
 const { app } = require("./app");
 
