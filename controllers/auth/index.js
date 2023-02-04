@@ -1,6 +1,6 @@
 const signup = require("./signup");
 const login = require("./login");
-const signupVerify = require("./signup_verify");
+const signupVerify = require("./signupVerify");
 const signupConfirmation = require("./signupConfirm");
 module.exports = {
   signup,

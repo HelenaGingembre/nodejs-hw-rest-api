@@ -1,12 +1,11 @@
 const express = require("express");
 
 require("dotenv").config();
-const { /*HttpError,*/ tryCatchWrapper } = require("../../helpers/index.js");
-// const { User } = require("../../models/user");
+const { tryCatchWrapper } = require("../../helpers/index.js");
+
 const authRouter = express.Router();
 const { authCtrl } = require("../../controllers");
 const { validationCreateUser, validationLoginUser } = require("./validation");
-const signupVerify = require("../../controllers/auth/signup_verify.js");
 
 //auth/signup
 authRouter.post(

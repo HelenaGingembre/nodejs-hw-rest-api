@@ -24,7 +24,9 @@ const resendVerifyEmail = async (req, res, next) => {
         from: "e.izotovagingembre@outlook.com",
         subject: "Please confirm your email  address!",
         text: `Please, confirm your email address POST ${BASE_URL}${PORT}/api/auth/verify/${user.verificationToken}`,
-        html: `Please, confirm your email address <a target="_blank" href="${BASE_URL}${PORT}/api/auth/verify/${user.verificationToken}">confirm email</a>`,
+        html: `Please, confirm your email address
+         <a target="_blank" href="${BASE_URL}${PORT}/api/auth/verify/${user.verificationToken}">
+         confirm email</a>`,
       };
       await sgMail.send(msg);
 
